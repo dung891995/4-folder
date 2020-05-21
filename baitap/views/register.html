@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <form>
+        <span>email:</span>
+        <input type="text" id="email" name="email">
+        <span>password:</span>
+        <input type="text" id="password" name="password">
+
+        <button type="button" id="btn">
+            Đăng kí
+        </button>
+    </form>
+    <div class="content"></div>
+</body>
+<script>
+    $("#btn").click(function (data) {
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        //laasy dữ liệ từ server về mà không cần load lại trang
+        $.ajax({
+            //địa chỉ api
+            url: "/register",
+            //type: method tương ứng với api get,post, put, delete
+            type: 'POST',
+            //data: method get sẽ không dùng, method là post,put,delete,
+            data: {
+                email: email,
+                password: password,
+                //giá trị mà người dùng cần gửi lên server
+            }
+        }).then((result) => {
+        alert('dang ky thanh cong'),
+        window.location.href="/home"
+    })
+
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <form>
+        <p>email</p>
+        <input type="text" id="email" name="email">
+        <p>password</p>
+        <input type="text" id="password" name="password">
+        <button type="button" id="btn">
+            Login
+        </button>
+    </form>
+</body>
+<script>
+
+    $("#btn").click(function () {
+        var email = $("#email").val();
+        var password = $("#password").val();
+        $.ajax({
+            url: "/login",
+            type: "post",
+            data: {
+                email: email,
+                password: password,
+            }
+        }).then(function (data) {
+            console.log(data);
+            if (data.error) {
+                alert(data.message)
+            } else {
+                alert(data.message);
+                // setCookie("token",data.token,1)
+                window.location.href = "/home";
+            }
+        });
+    });
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script>
+
+</html>
